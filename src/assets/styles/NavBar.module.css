@@ -1,0 +1,53 @@
+.containerInfor {
+    width: 100%;
+    padding: 20px 0;
+    background-color: rgb(244 247 255/1);
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 12px;
+}
+
+.containerInforLeft {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.containerInforLeft p {
+    color: rgb(67 70 87 /1);
+}
+
+.buttonLocation {
+    background: transparent;
+    border: none;
+    color: rgb(33 64 154/1);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.containerInforRight {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.phoneNumber,
+.storeCount {
+    cursor: pointer;
+    color: rgb(67 70 87 /1);
+}
+
+.phoneNumber:hover,
+.storeCount:hover {
+    color: rgb(33 64 154 /1);
+}
+
+.navbarContainer{
+    width: 100%;
+    display: flex;
+}
