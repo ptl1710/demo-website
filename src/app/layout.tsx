@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./component/Navbar";
+import { CartProvider } from "./context/CartContext";
+import { ToastProvider } from "./context/ToastContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,8 +28,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Navbar />
-        {children}
+        <ToastProvider>
+          <CartProvider>
+            <Navbar />
+            {children}
+          </CartProvider>
+        </ToastProvider>
       </body>
     </html>
   );
