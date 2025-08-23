@@ -5,6 +5,7 @@ import { useCart } from "../context/CartContext";
 import { useToast } from "../context/ToastContext";
 
 import ProductSkeleton from "./ProductSkeleton";
+import ProductCard from "./ProductCard";
 
 export default function ProductList({ products }: { products?: any[] }) {
   const { addToCart } = useCart();
@@ -43,38 +44,11 @@ export default function ProductList({ products }: { products?: any[] }) {
       }}
     >
       {displayProducts.map((product: any) => (
-        <div
+        <ProductCard
           key={product.id}
-          style={{
-            border: "1px solid #ddd",
-            borderRadius: "8px",
-            padding: "1rem",
-            textAlign: "center",
-          }}
-        >
-          <img
-            src={product.image}
-            alt={product.name}
-            style={{ width: "100%", height: "150px", objectFit: "cover" }}
-            loading="lazy"
-          />
-          <h3>{product.name}</h3>
-          <p>{product.price.toLocaleString()} đ</p>
-          <button
-            onClick={() => handleAdd(product)}
-            style={{
-              marginTop: "8px",
-              padding: "8px 12px",
-              border: "none",
-              borderRadius: "4px",
-              background: "#22409A",
-              color: "#fff",
-              cursor: "pointer",
-            }}
-          >
-            Thêm vào giỏ
-          </button>
-        </div>
+          product={product}
+          onAddToCart={handleAdd}
+        />
       ))}
     </div>
   );

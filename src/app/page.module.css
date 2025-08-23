@@ -165,3 +165,17 @@ a.secondary {
     filter: invert();
   }
 }
+
+
+.breadcrumb {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px 0;
+  color: rgb(33 64 154/.8);
+}
+
+.breadcrumb span svg{
+  width: 5px;
+}

@@ -20,6 +20,8 @@ export const GET_CATEGORIES = gql`
     categories {
       id
       name
+      slug
+      image
     }
   }
 `;

@@ -4,11 +4,14 @@ import { useCart } from '../context/CartContext';
 
 import styles from '@/assets/styles/NavBar.module.css';
 import AuthForm from './AuthForm';
+import { useQuery } from '@apollo/client/react';
+import { GET_CATEGORIES } from '../queries/products';
+import Link from 'next/link';
 export default function Navbar() {
 
     const { totalQuantity } = useCart();
     const [showAuthModal, setShowAuthModal] = useState(false);
-
+    const { data: dataCategory, loading: loadingCategory, error: errorCategory } = useQuery(GET_CATEGORIES)
     return (
         <>
             <div className={styles.containerInfor}>
@@ -126,82 +129,40 @@ export default function Navbar() {
                 <div className={styles.categoryWrapper}>
                     <div className={styles.categoryToggle}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 20" width="22" height="20" >
-                            <path d="M1.375 2.46777H20.625" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <path d="M1.375 2.46777H20.625" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                             </path>
-                            <path d="M1.375 9.69531H20.625" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <path d="M1.375 9.69531H20.625" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                             </path>
-                            <path d="M1.375 16.9238H20.625" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <path d="M1.375 16.9238H20.625" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                             </path>
                         </svg>
                         <h3>Danh mục</h3>
                         <ul className={styles.categoryList}>
-                            <li>
-                                <a href="https://www.kidsplaza.vn/me-bau-va-sau-sinh.html">
-                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_B_ng_b_u_2.png" alt="Mẹ bầu" />
-                                    <span>Mẹ bầu và sau sinh</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.kidsplaza.vn/sua-va-thuc-pham.html">
-                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_S_a_cho_b__1_1.png" alt="Sữa cho bé" />
-                                    <span>Sữa cho bé</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.kidsplaza.vn/thuc-pham-dinh-duong.html">
-                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_B_n_d_m_1.png" alt="Ăn dặm" />
-                                    <span>Bé ăn dặm</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.kidsplaza.vn/bim-ta-va-ve-sinh.html">
-                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_B_m_t_V_sinh_1.png" alt="Bỉm tã" />
-                                    <span>Bỉm tã và vệ sinh</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.kidsplaza.vn/binh-sua-va-phu-kien.html">
-                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_B_nh-s_a_1.png" alt="Bình sữa" />
-                                    <span>Bình sữa và phụ kiện</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.kidsplaza.vn/do-so-sinh.html">
-                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon__s_sinh_1.png" alt="Sơ sinh" />
-                                    <span>Đồ sơ sinh</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.kidsplaza.vn/thoi-trang-va-phu-kien.html">
-                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_Gi_y_1.png" alt="Thời trang" />
-                                    <span>Thời trang và phụ kiện</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.kidsplaza.vn/vitamin-va-suc-khoe.html">
-                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_Vitamin_1.png" alt="Vitamin" />
-                                    <span>Vitamin và sức khỏe</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.kidsplaza.vn/do-dung-an-uong.html">
-                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_Th_a_d_a_1.png" alt="Đồ dùng" />
-                                    <span>Đồ dùng mẹ và bé</span>
-                                </a>
-                            </li>
+                            {
+                                dataCategory?.categories?.map((item) => {
+                                    return (
+                                        <li key={item.id}>
+                                            <Link href={`/${item.slug}`}>
+                                                <img src={item.image} alt={item.name} />
+                                                <span>{item.name}</span>
+                                            </Link>
+                                        </li>
+                                    )
+                                })
+                            }
                         </ul>
                     </div>
                     <div className={styles.categoryInfo}>
                         <svg width="18" height="18" viewBox="0 0 18 18" >
                             <g transform="translate(-127 -122)">
-                                <path d="M4.7,3.8H17.3a.9.9,0,0,1,.9.9V17.3a.9.9,0,0,1-.9.9H4.7a.9.9,0,0,1-.9-.9V4.7A.9.9,0,0,1,4.7,3.8ZM2,4.7A2.7,2.7,0,0,1,4.7,2H17.3A2.7,2.7,0,0,1,20,4.7V17.3A2.7,2.7,0,0,1,17.3,20H4.7A2.7,2.7,0,0,1,2,17.3ZM11,11C8.515,11,6.5,8.583,6.5,5.6H8.3c0,2.309,1.5,3.6,2.7,3.6s2.7-1.291,2.7-3.6h1.8C15.5,8.583,13.485,11,11,11Z" transform="translate(125 120)" fill="currentColor" fill-rule="evenodd">
+                                <path d="M4.7,3.8H17.3a.9.9,0,0,1,.9.9V17.3a.9.9,0,0,1-.9.9H4.7a.9.9,0,0,1-.9-.9V4.7A.9.9,0,0,1,4.7,3.8ZM2,4.7A2.7,2.7,0,0,1,4.7,2H17.3A2.7,2.7,0,0,1,20,4.7V17.3A2.7,2.7,0,0,1,17.3,20H4.7A2.7,2.7,0,0,1,2,17.3ZM11,11C8.515,11,6.5,8.583,6.5,5.6H8.3c0,2.309,1.5,3.6,2.7,3.6s2.7-1.291,2.7-3.6h1.8C15.5,8.583,13.485,11,11,11Z" transform="translate(125 120)" fill="currentColor" fillRule="evenodd">
                                 </path>
                             </g>
                         </svg>
                         <p>Zalo cửa hàng</p>
                     </div>
                     <div className={styles.categoryInfo}>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" ><path d="M20 6L9 17L4 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" ><path d="M20 6L9 17L4 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                         <p>Ưu đãi khi tải app</p>
                     </div>
                     <div className={styles.categoryInfo}>
