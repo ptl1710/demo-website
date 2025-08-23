@@ -1,0 +1,33 @@
+.containerProductFilter {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem
+}
+
+.selectCategory {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: transparent;
+    color: #000;
+}
+
+.containerProductFilter input[type="text"] {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    flex: 1;
+    background: transparent;
+    color: #000;
+}
+
+.buttonFilter,
+.buttonReset {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}

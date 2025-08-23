@@ -1,26 +1,18 @@
 'use client';
-import { useCart } from "./context/CartContext";
-import { useToast } from "./context/ToastContext";
+import { useState } from "react";
+import ProductList from "./component/ProductList";
+import ProductFilter from "./component/ProductFilter";
 
 export default function Home() {
-  const { addToCart } = useCart();
-  const { showToast } = useToast();
-  const product = {
-    id: "1",
-    name: "Sữa bột cho bé",
-    price: 250000,
-  };
-
-  const handleAdd = () => {
-    addToCart(product);
-    showToast(`Đã thêm "${product.name}" vào giỏ hàng!`);
-  };
+  const [filteredProducts, setFilteredProducts] = useState<any[] | undefined>(undefined);
 
   return (
-    <div>
-      <h3>{product.name}</h3>
-      <p>{product.price.toLocaleString()} đ</p>
-      <button onClick={handleAdd}>Thêm vào giỏ</button>
-    </div>
+    <main>
+      <h1 style={{ textAlign: "center", margin: "20px 0" }}>
+        Danh sách sản phẩm
+      </h1>
+      <ProductFilter onFilter={setFilteredProducts} />
+      <ProductList products={filteredProducts} />
+    </main>
   );
 }

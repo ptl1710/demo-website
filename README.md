@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 Demo Website - Next.js + Apollo Client + React Hook Form + Jest
 
-## Getting Started
+Dự án demo website bán hàng đơn giản, được xây dựng bằng **Next.js (App Router)** với các chức năng:
 
-First, run the development server:
+- Hiển thị danh sách sản phẩm từ **GraphQL API**.
+- Giỏ hàng sử dụng **React Context** (thêm sản phẩm, tính tổng số lượng và tổng giá trị).
+- Thông báo (toast) khi thêm sản phẩm thành công hoặc trùng lặp.
+- Bộ lọc sản phẩm theo **category** và **khoảng giá**.
+- Đăng ký/Đăng nhập bằng **số điện thoại + OTP SMS**.
 
+---
+
+## 🚀 Công nghệ sử dụng
+
+- [Next.js 13+ (App Router)](https://nextjs.org/docs/app)  
+- [Apollo Client](https://www.apollographql.com/docs/react/)  
+- [Apollo Server](https://www.apollographql.com/docs/apollo-server/)  
+- [React Hook Form](https://react-hook-form.com/)  
+- [TypeScript](https://www.typescriptlang.org/)  
+- [CSS Modules](https://nextjs.org/docs/basic-features/built-in-css-support#adding-component-level-css)  
+
+---
+
+## 📂 Cấu trúc thư mục
+
+src/
+├── app/
+│ ├── layout.tsx # Root layout
+│ ├── page.tsx # Trang chính (hiển thị sản phẩm + filter)
+│ ├── queries/ # GraphQL queries
+│ │ └── products.ts
+│ ├── context/
+│ │ ├── CartContext.tsx # Context giỏ hàng
+│ │ └── ToastContext.tsx# Context hiển thị thông báo
+│ ├── component/
+│ │ ├── Navbar.tsx
+│ │ ├── ProductList.tsx
+│ │ ├── ProductFilter.tsx
+│ │ ├── AuthForm.tsx # Form đăng nhập/đăng ký OTP
+│ │ └── ...
+│ └── lib/
+│ └── apolloClient.ts # Cấu hình Apollo Client
+tsconfig.json # TypeScript config
+---
+
+## ⚙️ Cài đặt
+
+### 1. Clone repo
 ```bash
+git clone https://github.com/ptl1710/demo-website.git
+cd demo-website
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+✨ Tính năng chính
+🛍️ Sản phẩm
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Lấy dữ liệu sản phẩm từ GraphQL.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Loading state với animation skeleton.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Lọc sản phẩm theo loại và khoảng giá.
 
-## Learn More
+Reset filter về mặc định.
 
-To learn more about Next.js, take a look at the following resources:
+🛒 Giỏ hàng
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Thêm sản phẩm vào giỏ.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Nếu sản phẩm đã có → hiển thị thông báo lỗi.
 
-## Deploy on Vercel
+🔔 Toast thông báo
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Hiển thị khi thêm sản phẩm thành công / thất bại.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Tự động biến mất sau 3 giây.
+
+Có type: success | fail.
+
+📱 Đăng nhập bằng số điện thoại (OTP SMS)
+
+Nhập số điện thoại → gửi OTP.
+
+Nhập OTP để xác minh → đăng nhập thành công.
+
+Sau khi đăng nhập thành công → đóng modal login.
+
+📷 Demo
+
+Trang chủ: Danh sách sản phẩm + Filter
+
+Modal đăng nhập bằng SMS
+
+📜 License
+
+MIT License © 2025

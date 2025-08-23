@@ -1,13 +1,16 @@
 'use client';
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
+type ToastType = "success" | "fail";
+
 type Toast = {
   id: number;
   message: string;
+  type: ToastType;
 };
 
 const ToastContext = createContext<{
-  showToast: (msg: string) => void;
+  showToast: (msg: string, type?: ToastType) => void;
 }>({
   showToast: () => {},
 });
@@ -15,18 +18,18 @@ const ToastContext = createContext<{
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
-  const showToast = (message: string) => {
+  const showToast = (message: string, type: ToastType = "success") => {
     const id = Date.now();
-    setToasts((prev) => [...prev, { id, message }]);
+    setToasts((prev) => [...prev, { id, message, type }]);
     setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 3000); // biến mất sau 3 giây
+    }, 3000);
   };
 
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      {/* Container hiển thị Toast */}
+      {/* Toast container */}
       <div
         style={{
           position: "fixed",
@@ -42,7 +45,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
           <div
             key={t.id}
             style={{
-              background: "#4caf50",
+              background: t.type === "success" ? "#4caf50" : "#f44336",
               color: "#fff",
               padding: "10px 16px",
               borderRadius: "6px",

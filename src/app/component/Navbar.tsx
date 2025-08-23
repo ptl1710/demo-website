@@ -1,9 +1,14 @@
 'use client';
-import styles from '@/assets/styles/NavBar.module.css';
+import { useState } from 'react';
 import { useCart } from '../context/CartContext';
+
+import styles from '@/assets/styles/NavBar.module.css';
+import AuthForm from './AuthForm';
 export default function Navbar() {
 
-    const { totalQuantity, totalPrice } = useCart();
+    const { totalQuantity } = useCart();
+    const [showAuthModal, setShowAuthModal] = useState(false);
+
     return (
         <>
             <div className={styles.containerInfor}>
@@ -66,7 +71,7 @@ export default function Navbar() {
                                     </div>
                                 </button>
                                 <button>
-                                    <div className={styles.menuItem}>
+                                    <div className={styles.menuItem} onClick={() => setShowAuthModal(true)}>
                                         <svg width="16.577" height="18.6" viewBox="0 0 16.577 18.6" >
                                             <g transform="translate(-95.7 -121.203)">
                                                 <path d="M-7722.37,2933a.63.63,0,0,1-.63-.63c0-4.424,2.837-6.862,7.989-6.862s7.989,2.438,7.989,6.862a.629.629,0,0,1-.63.63Zm.647-1.251h13.428c-.246-3.31-2.5-4.986-6.713-4.986s-6.471,1.673-6.714,4.986Zm2.564-12.518a4.1,4.1,0,0,1,1.172-3,4.1,4.1,0,0,1,2.979-1.229,4.1,4.1,0,0,1,2.979,1.229,4.1,4.1,0,0,1,1.171,3,4.341,4.341,0,0,1-4.149,4.5,4.344,4.344,0,0,1-4.16-4.5Zm1.251,0a3.1,3.1,0,0,0,2.9,3.254,3.094,3.094,0,0,0,2.9-3.253,2.878,2.878,0,0,0-.813-2.109,2.88,2.88,0,0,0-2.085-.872,2.843,2.843,0,0,0-2.1.856,2.841,2.841,0,0,0-.806,2.122Z" transform="translate(7819 -2793.5)" fill="currentColor" stroke="currentColor" strokeWidth="0.6">
@@ -89,13 +94,135 @@ export default function Navbar() {
                                                 </clipPath></defs>
                                         </svg>
                                         <span>Giỏ hàng</span>
-                                        <div className={styles.cartInfo}>
-                                            {totalQuantity}
-                                        </div>
+                                        {
+                                            totalQuantity > 0 && (
+                                                <div className={styles.cartInfo}>
+                                                    {totalQuantity}
+                                                </div>
+                                            )
+                                        }
+
                                     </div>
                                 </button>
                             </div>
                         </nav>
+                    </div>
+                </div>
+                {showAuthModal && (
+                    <div className={styles.modalOverlay}>
+                        <div className={styles.modalContent}>
+                            <button
+                                className={styles.modalClose}
+                                onClick={() => setShowAuthModal(false)}
+                            >
+                                ×
+                            </button>
+                            <AuthForm onSuccess={() => setShowAuthModal(false)} />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className={styles.categorySection}>
+                <div className={styles.categoryWrapper}>
+                    <div className={styles.categoryToggle}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 20" width="22" height="20" >
+                            <path d="M1.375 2.46777H20.625" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            </path>
+                            <path d="M1.375 9.69531H20.625" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            </path>
+                            <path d="M1.375 16.9238H20.625" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            </path>
+                        </svg>
+                        <h3>Danh mục</h3>
+                        <ul className={styles.categoryList}>
+                            <li>
+                                <a href="https://www.kidsplaza.vn/me-bau-va-sau-sinh.html">
+                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_B_ng_b_u_2.png" alt="Mẹ bầu" />
+                                    <span>Mẹ bầu và sau sinh</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.kidsplaza.vn/sua-va-thuc-pham.html">
+                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_S_a_cho_b__1_1.png" alt="Sữa cho bé" />
+                                    <span>Sữa cho bé</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.kidsplaza.vn/thuc-pham-dinh-duong.html">
+                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_B_n_d_m_1.png" alt="Ăn dặm" />
+                                    <span>Bé ăn dặm</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.kidsplaza.vn/bim-ta-va-ve-sinh.html">
+                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_B_m_t_V_sinh_1.png" alt="Bỉm tã" />
+                                    <span>Bỉm tã và vệ sinh</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.kidsplaza.vn/binh-sua-va-phu-kien.html">
+                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_B_nh-s_a_1.png" alt="Bình sữa" />
+                                    <span>Bình sữa và phụ kiện</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.kidsplaza.vn/do-so-sinh.html">
+                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon__s_sinh_1.png" alt="Sơ sinh" />
+                                    <span>Đồ sơ sinh</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.kidsplaza.vn/thoi-trang-va-phu-kien.html">
+                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_Gi_y_1.png" alt="Thời trang" />
+                                    <span>Thời trang và phụ kiện</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.kidsplaza.vn/vitamin-va-suc-khoe.html">
+                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_Vitamin_1.png" alt="Vitamin" />
+                                    <span>Vitamin và sức khỏe</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.kidsplaza.vn/do-dung-an-uong.html">
+                                    <img src="https://cdn-v2.kidsplaza.vn//media/catalog/category/Icon_Th_a_d_a_1.png" alt="Đồ dùng" />
+                                    <span>Đồ dùng mẹ và bé</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className={styles.categoryInfo}>
+                        <svg width="18" height="18" viewBox="0 0 18 18" >
+                            <g transform="translate(-127 -122)">
+                                <path d="M4.7,3.8H17.3a.9.9,0,0,1,.9.9V17.3a.9.9,0,0,1-.9.9H4.7a.9.9,0,0,1-.9-.9V4.7A.9.9,0,0,1,4.7,3.8ZM2,4.7A2.7,2.7,0,0,1,4.7,2H17.3A2.7,2.7,0,0,1,20,4.7V17.3A2.7,2.7,0,0,1,17.3,20H4.7A2.7,2.7,0,0,1,2,17.3ZM11,11C8.515,11,6.5,8.583,6.5,5.6H8.3c0,2.309,1.5,3.6,2.7,3.6s2.7-1.291,2.7-3.6h1.8C15.5,8.583,13.485,11,11,11Z" transform="translate(125 120)" fill="currentColor" fill-rule="evenodd">
+                                </path>
+                            </g>
+                        </svg>
+                        <p>Zalo cửa hàng</p>
+                    </div>
+                    <div className={styles.categoryInfo}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" ><path d="M20 6L9 17L4 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        <p>Ưu đãi khi tải app</p>
+                    </div>
+                    <div className={styles.categoryInfo}>
+                        <svg width="32" height="32" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 15C0 6.70673 6.67464 0 15 0C23.2536 0 30 6.70673 30 15C30 23.2933 24.1148 30 15 30C5.88517 30 0 23.2933 0 15Z" fill="#214495">
+                            </path>
+                            <path d="M22.2488 23.3653C23.6124 21.9951 23.6124 19.8317 22.2488 18.4615L18.8038 14.9999L22.2488 11.5384C23.6124 10.1682 23.6124 8.00474 22.2488 6.63455C20.8852 5.26435 18.6603 5.26435 17.3684 6.63455L13.6364 10.3845C14.4976 9.51916 15.933 9.51916 16.7943 10.3845C17.6555 11.2499 17.6555 12.6922 16.7943 13.5576L15.3589 14.9999L16.7943 16.4422C17.6555 17.3076 17.6555 18.7499 16.7943 19.6153C15.933 20.4807 14.4976 20.4807 13.6364 19.6153L17.3684 23.3653C18.7321 24.6634 20.9569 24.6634 22.2488 23.3653Z" fill="#FFCB32">
+                            </path>
+                            <path d="M9.04308 15L13.6364 10.3846V9.08657C13.6364 7.21157 12.0574 5.62503 10.1914 5.62503C8.25361 5.62503 6.74643 7.21157 6.74643 9.08657V20.8414C6.74643 22.7164 8.32538 24.3029 10.1914 24.3029C12.1292 24.3029 13.6364 22.7164 13.6364 20.8414V19.5433L9.04308 15Z" fill="#22C2F2">
+                            </path>
+                            <path d="M15.3588 15L16.7942 13.5577C17.6555 12.6923 17.6555 11.25 16.7942 10.3846C15.933 9.51922 14.4976 9.51922 13.6363 10.3846L9.04305 14.9279L13.6363 19.4711C14.4976 20.3365 15.933 20.3365 16.7942 19.4711C17.6555 18.6058 17.6555 17.1634 16.7942 16.2981L15.3588 15Z" fill="white">
+                            </path>
+                        </svg>
+                        <p>Thưởng Kicoin</p>
+                    </div>
+                    <div className={styles.categoryInfo}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 14 14">
+                            <path id="Path_111" data-name="Path 111" d="M269.443,404.312a7,7,0,1,0,7,7,6.98,6.98,0,0,0-7-7Zm.635,10.818a.3.3,0,0,1-.319.319h-.635a.3.3,0,0,1-.319-.319v-.635a.3.3,0,0,1,.319-.319h.635a.3.3,0,0,1,.319.319Zm.859-2.832c-.446.382-.763.637-.859.987a.308.308,0,0,1-.319.255h-.635a.309.309,0,0,1-.319-.35,2.988,2.988,0,0,1,1.336-1.876c.574-.446.892-.732.892-1.274a1.591,1.591,0,1,0-3.182,0v.191a.3.3,0,0,1-.224.351l-.6.189a.318.318,0,0,1-.414-.253,2.363,2.363,0,0,1-.033-.479,2.864,2.864,0,0,1,5.729,0,2.792,2.792,0,0,1-1.369,2.259Zm0,0" transform="translate(-262.442 -404.312)" fill="currentColor">
+                            </path>
+                        </svg>
+                        <a href="tel:18006608">Hotline: 1800.6608</a>
                     </div>
                 </div>
             </div>

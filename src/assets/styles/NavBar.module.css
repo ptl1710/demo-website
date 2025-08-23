@@ -176,6 +176,8 @@
     padding-left: 0.5rem;
     border-radius: 9999px;
     outline: none;
+    background: transparent;
+    color: #000;
 }
 
 .searchBtn {
@@ -244,4 +246,138 @@
     .menuItem {
         width: 7rem;
     }
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modalContent {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    position: relative;
+}
+
+.modalClose {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    color: black;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.categorySection {
+    width: 100%;
+    background: linear-gradient(to right, #ffcc32 0%, #fdaf17 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+
+.categoryWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.categoryToggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    color: #22409a;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-weight: 700;
+    position: relative;
+}
+
+.categoryToggle h3 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.categoryList {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 236px;
+    background: #fff;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 8px 0;
+    margin: 0;
+    z-index: 1000;
+    max-height: 362px;
+    overflow-y: auto;
+}
+
+.categoryList li {
+    margin: 0;
+}
+
+.categoryList li a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.categoryList li a img {
+    width: 16px;
+    height: 16px;
+}
+
+.categoryList li a:hover {
+    background: #f6f6f6;
+    color: #22409a;
+}
+
+.categoryToggle:hover .categoryList {
+    display: block;
+}
+
+.categoryInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #22409a;
+    font-weight: 700;
+    cursor: pointer;
+    gap: 4px;
+    font-size: 14px;
+}
+
+.categoryInfo:hover p {
+   color: white;
+}
+
+.categoryInfo:hover a {
+    color: white;
 }
